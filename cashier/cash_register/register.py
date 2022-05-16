@@ -22,14 +22,14 @@ class Receipt:
         taxed_price = truncate(price + sales_tax)
         # TODO: handle when item already exists
         self.items[item] = PriceInfo(taxed_price, sales_tax)
-    
+
     def remove_item(self, item):
         del self.items[item]
 
     def finish_receipt(self):
         # compute and store the total price and sales tax for items on receipt
         # this method designates the end of the receipt generation process
-        
+
         total_sales_tax = 0
         total_price = 0
         # get total values by summing those for each item
@@ -37,7 +37,7 @@ class Receipt:
             total_sales_tax += sales_tax
             total_price += taxed_price
         self.total_price = truncate(total_price)
-        self.total_sales_tax =  truncate(total_sales_tax)
+        self.total_sales_tax = truncate(total_sales_tax)
 
     def get_items(self):
         return self.items

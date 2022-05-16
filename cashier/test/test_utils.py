@@ -1,5 +1,6 @@
 from cashier.cash_register.utils import truncate
 
+
 class TestUtils:
     def test_truncate(self):
         assert truncate(16.4900000000002) == 16.49

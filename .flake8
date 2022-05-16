@@ -1,0 +1,13 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    venv
+max-line-length = 180
+per-file-ignores =
+    # 'pytest_mock.mocker' imported but unused
+    # redefinition of unused 'mocker' from line 3
+    ./cashier/test/test_register.py: F401, F811
+    # 'pytest_mock.mocker' imported but unused
+    # redefinition of unused 'mocker' from line 3
+    ./cashier/test/test_register.py: F401, F811

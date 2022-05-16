@@ -11,7 +11,7 @@ class ItemCategory(Enum):
 
 class TaxOffice:
     """Tax rate calculator."""
-    
+
     @staticmethod
     def calculate_tax_rate(category, imported):
         sales_tax_rate = 0

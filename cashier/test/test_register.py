@@ -48,7 +48,7 @@ class TestReceipt:
         assert len(receipt.items) == 2 and item1 in receipt.items
         receipt.remove_item(item1)
         assert len(receipt.items) == 1 and item1 not in receipt.items
- 
+
     def test_finish_receipt(self, valid_receipt):
         receipt = valid_receipt
         assert receipt.total_sales_tax == 0

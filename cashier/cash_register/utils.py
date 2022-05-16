@@ -6,7 +6,7 @@ def truncate(number):
 class ReceiptPrinter:
     """Utility class for pretty printing receipts."""
 
-    template = f"""
+    template = """
 ================= RECEIPT =================
 $DATETIME
 -------------------------------------------
@@ -20,7 +20,7 @@ Total: $TOTAL_PRICE
     @staticmethod
     def generate_raw_receipt(receipt):
         raw_receipt = ReceiptPrinter.template.replace("$DATETIME", str(receipt.time))
-        
+
         item_log = ''
         for item, (taxed_price, _) in receipt.get_items().items():
             item_log += f"{item} --- {taxed_price}\n"

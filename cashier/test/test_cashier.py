@@ -6,6 +6,7 @@ from cashier.cash_register.register import Register
 from cashier.cash_register.item import Item
 from cashier.cash_register.tax_office import ItemCategory
 
+
 class TestCashier:
     @pytest.fixture
     def get_register(self):
@@ -24,7 +25,7 @@ class TestCashier:
         items = receipt.get_items()
 
         assert len(items) == 3
-        assert items[item1] == (12.49, 0) 
+        assert items[item1] == (12.49, 0)
         assert items[item2] == (16.49, 1.5)
         assert items[item3] == (0.85, 0)
         assert receipt.total_sales_tax == 1.5
@@ -36,12 +37,12 @@ class TestCashier:
         item2 = Item(name="bottle of perfume", price=47.50, category=ItemCategory.NON_ESSENTIAL, quantity=1, imported=True)
         register.process_item(item1)
         register.process_item(item2)
-        
+
         receipt = register.get_receipt()
         items = receipt.get_items()
 
         assert len(items) == 2
-        assert items[item1] == (10.5, 0.5) 
+        assert items[item1] == (10.5, 0.5)
         assert items[item2] == (54.65, 7.15)
         assert receipt.total_sales_tax == 7.65
         assert receipt.total_price == 65.15
@@ -61,7 +62,7 @@ class TestCashier:
         items = receipt.get_items()
 
         assert len(items) == 4
-        assert items[item1] == (32.19, 4.20) 
+        assert items[item1] == (32.19, 4.20)
         assert items[item2] == (20.89, 1.90)
         assert items[item3] == (9.75, 0)
         assert items[item4] == (11.85, 0.60)
@@ -83,10 +84,9 @@ class TestCashier:
         items = receipt.get_items()
 
         assert len(items) == 4
-        assert items[item1] == (32.19, 4.20) 
+        assert items[item1] == (32.19, 4.20)
         assert items[item2] == (41.78, 3.80)
         assert items[item3] == (29.25, 0)
         assert items[item4] == (47.25, 2.25)
         assert receipt.total_sales_tax == 10.25
         assert receipt.total_price == 150.47
-        
