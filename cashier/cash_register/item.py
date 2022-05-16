@@ -2,9 +2,10 @@ from enum import Enum
 
 
 class ItemCategory(Enum):
-    FOOD = 0
-    BOOK = 1
-    MEDICAL = 2
+    OTHER = 0
+    FOOD = 1
+    BOOK = 2
+    MEDICAL = 3
 
 
 class Item:
