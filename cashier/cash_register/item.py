@@ -1,3 +1,6 @@
+from cashier.cash_register.utils import truncate
+
+
 class Item:
     def __init__(self, name, price, category, quantity=1, imported=False):
         self.name = name

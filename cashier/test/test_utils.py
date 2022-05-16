@@ -1,4 +1,4 @@
-from cashier.cash_register.register import truncate
+from cashier.cash_register.utils import truncate
 
 class TestUtils:
     def test_truncate(self):

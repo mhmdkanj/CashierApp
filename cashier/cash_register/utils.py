@@ -1,4 +1,7 @@
-from cashier.cash_register.register import Receipt
+def truncate(number):
+    # enough to truncate numbers up to two decimal places taking into consideration float storage errors
+    return round(number, 2)
+
 
 class ReceiptPrinter:
     template = f"""
@@ -13,7 +16,7 @@ class ReceiptPrinter:
     """
 
     @staticmethod
-    def generate_raw_receipt(receipt: Receipt):
+    def generate_raw_receipt(receipt):
         raw_receipt = ReceiptPrinter.template.replace("$DATETIME", receipt.time)
         
         item_log = ''

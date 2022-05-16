@@ -2,13 +2,9 @@ import math
 import datetime
 from collections import namedtuple
 from cashier.cash_register.tax_office import TaxOffice
+from cashier.cash_register.utils import truncate
 
 PriceInfo = namedtuple('PriceInfo', 'price tax')
-
-
-def truncate(number):
-    # enough to truncate numbers up to two decimal places taking into consideration float storage errors
-    return round(number, 2)
 
 
 class Receipt:
