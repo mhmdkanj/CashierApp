@@ -27,4 +27,5 @@ class Item:
         return f"{self.quantity}x {self.name}"
 
     def __hash__(self):
-        return hash(self.name)
+        uid = "imported " + self.name if self.imported else self.name
+        return hash(uid)
