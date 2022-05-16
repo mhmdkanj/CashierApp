@@ -27,7 +27,7 @@ class Item:
         return f"{self.__class__.__name__}(name={self.name}, price={self.price}, category={self.category}, quantity={self.quantity}, imported={self.imported})"
 
     def __str__(self):
-        return f"{self.quantity}x {self.name}"
+        return f"{self.quantity}x imported {self.name}" if self.imported else f"{self.quantity}x {self.name}"
 
     def __hash__(self):
         uid = "imported " + self.name if self.imported else self.name
