@@ -1,4 +1,5 @@
 from enum import Enum
+from cashier.cash_register.utils import truncate
 
 
 class ItemCategory(Enum):
@@ -16,4 +17,4 @@ class TaxOffice:
             sales_tax_rate += 0.05
         if category == ItemCategory.NON_ESSENTIAL:
             sales_tax_rate += 0.1
-        return sales_tax_rate
+        return truncate(sales_tax_rate)
