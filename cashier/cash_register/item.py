@@ -24,7 +24,7 @@ class Item:
         return f"{self.__class__.__name__}(name={self.name}, price={self.price}, category={self.category}, quantity={self.quantity}, imported={self.imported})"
 
     def __str__(self):
-        return f"{self.name} x{self.quantity}"
+        return f"{self.quantity}x {self.name}"
 
     def __hash__(self):
         return hash(self.name)
