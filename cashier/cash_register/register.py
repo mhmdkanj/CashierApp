@@ -1,5 +1,6 @@
 import datetime
 from collections import namedtuple
+from cashier.cash_register.tax_office import TaxOffice
 
 PriceInfo = namedtuple('PriceInfo', 'price tax')
 
@@ -31,3 +32,25 @@ class Receipt:
 
     def get_items(self):
         return self.items
+
+
+class Register:
+    def __init__(self):
+        self.receipt = None
+
+    def process_item(self, item):
+        if self.receipt is None:
+            self.receipt = Receipt()
+        self.receipt.add_item(item, TaxOffice.calculate_tax_rate(category=item.category, imported=item.imported))
+
+    def delete_item(self, item):
+        self.receipt.remove_item(item)
+
+    def get_receipt(self):
+        if self.receipt is not None:
+            self.receipt.finish_receipt()
+        return self.receipt
+
+    def reset(self):
+        self.receipt = None
+

@@ -1,5 +1,6 @@
+from atexit import register
 import pytest
-from cashier.cash_register.register import Receipt, PriceInfo
+from cashier.cash_register.register import Receipt, Register, PriceInfo
 from cashier.cash_register.item import Item
 from cashier.cash_register.tax_office import ItemCategory
 
