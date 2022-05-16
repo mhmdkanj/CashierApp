@@ -5,8 +5,8 @@ class Item:
     def __init__(self, name, price, category, quantity=1, imported=False):
         self.name = name
         self.quantity = quantity
-        self.price = price
-        self.category = category
+        self.price = price  # price per one item
+        self.category = category  # one of ItemCategory
         self.imported = imported
 
     @property
