@@ -139,3 +139,11 @@ class TestRegister:
         assert Register.round_up(35.15) == 35.15
         assert Register.round_up(35.16) == 35.20
         assert Register.round_up(35.19) == 35.20
+
+    def test_round_up_precise(self):
+        assert Register.round_up(35.1000) == 35.10
+        assert Register.round_up(35.1152) == 35.15
+        assert Register.round_up(35.1321) == 35.15
+        assert Register.round_up(35.150) == 35.15
+        assert Register.round_up(35.1693) == 35.20
+        assert Register.round_up(35.19) == 35.20
