@@ -61,5 +61,7 @@ class Register:
 
     @staticmethod
     def round_up(number, fraction=0.05):
+        # round number up to nearest fraction
         rounded_up = math.ceil(number / fraction) * fraction
+        # truncate rounded number so that only two decimal places remain
         return round(rounded_up, -int(math.floor(math.log10(fraction))))
