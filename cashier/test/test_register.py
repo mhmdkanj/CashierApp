@@ -73,7 +73,7 @@ class TestRegister:
         register = basic_register
         assert register.receipt is None
 
-    def test_get_empty_receipt(self, basic_register):
+    def test_get_receipt_empty(self, basic_register):
         register = basic_register
         assert register.get_receipt() is None
 
