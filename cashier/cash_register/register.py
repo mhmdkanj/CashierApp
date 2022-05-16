@@ -5,6 +5,12 @@ from cashier.cash_register.tax_office import TaxOffice
 
 PriceInfo = namedtuple('PriceInfo', 'price tax')
 
+
+def truncate(number):
+    # enough to truncate numbers up to two decimal places taking into consideration float storage errors
+    return round(number, 2)
+
+
 class Receipt:
     def __init__(self, items=None):
         self.time = datetime.datetime.now()
@@ -13,7 +19,7 @@ class Receipt:
         self.total_price = 0
 
     def add_item(self, item, price, sales_tax):
-        taxed_price = price + sales_tax
+        taxed_price = truncate(price + sales_tax)  # truncate trailing float error
         # TODO: handle when item already exists
         self.items[item] = PriceInfo(taxed_price, sales_tax)
     
@@ -26,8 +32,8 @@ class Receipt:
         for taxed_price, sales_tax in self.items.values():
             total_sales_tax += sales_tax
             total_price += taxed_price
-        self.total_price = total_price
-        self.total_sales_tax = total_sales_tax
+        self.total_price = truncate(total_price)
+        self.total_sales_tax =  truncate(total_sales_tax)
 
     def get_items(self):
         return self.items
