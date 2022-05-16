@@ -54,7 +54,9 @@ class Register:
     def get_receipt(self):
         if self.receipt is not None:
             self.receipt.finish_receipt()
-        return self.receipt
+        receipt = self.receipt
+        self.reset()
+        return receipt
 
     def reset(self):
         self.receipt = None
