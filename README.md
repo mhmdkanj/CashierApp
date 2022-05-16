@@ -18,6 +18,8 @@ To run the examples, execute the following in the project's root directory:
 python -m cashier
 ```
 
+> TODO: As a next step, a CLI interface can be implemented in order to input items via the terminal instead of running the given examples.
+
 ## Usage
 
 To use the receipt generation API provided, four classes are mainly used for that purpose:
