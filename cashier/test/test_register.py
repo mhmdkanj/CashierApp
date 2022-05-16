@@ -131,3 +131,11 @@ class TestRegister:
         assert register.receipt is not None
         register.reset()
         assert register.receipt is None
+
+    def test_round_up(self):
+        assert Register.round_up(35.10) == 35.10
+        assert Register.round_up(35.11) == 35.15
+        assert Register.round_up(35.13) == 35.15
+        assert Register.round_up(35.15) == 35.15
+        assert Register.round_up(35.16) == 35.20
+        assert Register.round_up(35.19) == 35.20
