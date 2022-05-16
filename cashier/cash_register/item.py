@@ -22,9 +22,11 @@ class Item:
 
     @price.setter
     def price(self, val):
+        # allow number inputs only
         if not isinstance(val, (int, float)):
             raise ValueError(f"Price for item {self.name} should be a number.")
-        if val < 0:
+        # allow non-negative inputs only
+        elif val < 0:
             raise ValueError(f"Price for item {self.name} cannot be negative.")
         self._price = val
 
