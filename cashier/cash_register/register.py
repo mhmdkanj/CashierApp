@@ -16,7 +16,6 @@ class Receipt:
         taxed_price = price + sales_tax
         # TODO: handle when item already exists
         self.items[item] = PriceInfo(taxed_price, sales_tax)
-
     
     def remove_item(self, item):
         del self.items[item]
