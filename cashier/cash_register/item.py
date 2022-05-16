@@ -2,6 +2,8 @@ from cashier.cash_register.utils import truncate
 
 
 class Item:
+    """Models a shopping item."""
+
     def __init__(self, name, price, category, quantity=1, imported=False):
         self.name = name
         self.quantity = quantity
@@ -21,6 +23,7 @@ class Item:
         # allow non-negative inputs only
         elif val < 0:
             raise ValueError(f"Price for item {self.name} cannot be negative.")
+        # ignore further decimal places (>2)
         self._price = truncate(val)
 
     def __repr__(self):

@@ -4,6 +4,8 @@ def truncate(number):
 
 
 class ReceiptPrinter:
+    """Utility class for pretty printing receipts."""
+
     template = f"""
 ================= RECEIPT =================
 $DATETIME
