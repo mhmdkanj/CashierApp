@@ -4,9 +4,9 @@ from collections import namedtuple
 PriceInfo = namedtuple('PriceInfo', 'price tax')
 
 class Receipt:
-    def __init__(self):
+    def __init__(self, items=None):
         self.time = datetime.datetime.now()
-        self.items = dict()
+        self.items = dict() if items is None else items
         self.total_sales_tax = 0
         self.total_price = 0
 
