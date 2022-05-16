@@ -42,7 +42,7 @@ class TestReceipt:
         receipt.add_item(item1, 0.1)
         assert receipt.items[item1] == (220, 20)
 
-    def test_remove_tem(self, valid_receipt, basic_items):
+    def test_remove_item(self, valid_receipt, basic_items):
         receipt = valid_receipt
         item1 = basic_items[0]
         assert len(receipt.items) == 2 and item1 in receipt.items
@@ -111,7 +111,7 @@ class TestRegister:
         register.delete_item(item1)
         receipt_mocker.assert_not_called()
 
-    def test_delete_existing_item(self, basic_register, basic_items, mocker):
+    def test_delete_item_existing(self, basic_register, basic_items, mocker):
         register = basic_register
         item1 = basic_items[0]
         receipt_mocker = mocker.patch('cashier.cash_register.register.Receipt')
