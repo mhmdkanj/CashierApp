@@ -5,6 +5,11 @@ The items are taxed depending on whether the item was imported (+5%) and whether
 
 Given are three example shopping lists, whose receipts are printed out.
 
+## Requirements
+
+Since CashierApp is written in Python, a working distribution needs to be installed and included in your `PATH` environment variable:
+- [Python 3.7+](https://www.python.org/downloads/)
+
 ## Run Examples
 
 To run the examples, execute the following in the project's root directory:
