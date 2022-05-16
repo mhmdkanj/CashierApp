@@ -36,15 +36,17 @@ class Receipt:
 
 class Register:
     def __init__(self):
-        self.receipt = None
+        self.reset()
 
     def process_item(self, item):
         if self.receipt is None:
             self.receipt = Receipt()
-        self.receipt.add_item(item, TaxOffice.calculate_tax_rate(category=item.category, imported=item.imported))
+        tax_rate = TaxOffice.calculate_tax_rate(category=item.category, imported=item.imported)
+        self.receipt.add_item(item, tax_rate)
 
     def delete_item(self, item):
-        self.receipt.remove_item(item)
+        if self.receipt is not None:
+            self.receipt.remove_item(item)
 
     def get_receipt(self):
         if self.receipt is not None:

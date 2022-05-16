@@ -1,20 +1,22 @@
-from atexit import register
 import pytest
+from pytest_mock import mocker
 from cashier.cash_register.register import Receipt, Register, PriceInfo
 from cashier.cash_register.item import Item
 from cashier.cash_register.tax_office import ItemCategory
+
+
+@pytest.fixture
+def basic_items():
+    return (
+        Item(name="item1", category=ItemCategory.NON_ESSENTIAL, price=100, quantity=2),
+        Item(name="item1", category=ItemCategory.NON_ESSENTIAL, price=50, quantity=3),
+    )
+
 
 class TestReceipt:
     @pytest.fixture
     def empty_receipt(self):
         return Receipt()
-
-    @pytest.fixture
-    def basic_items(self):
-        return (
-            Item(name="item1", category=ItemCategory.NON_ESSENTIAL, price=100, quantity=2),
-            Item(name="item1", category=ItemCategory.NON_ESSENTIAL, price=50, quantity=3),
-        )
 
     @pytest.fixture
     def valid_receipt(self, basic_items):
@@ -61,6 +63,12 @@ class TestRegister:
     def basic_register(self):
         return Register()
 
+    @pytest.fixture
+    def valid_register(self):
+        register = Register()
+        register.receipt = Receipt()
+        return register
+
     def test_init(self, basic_register):
         register = basic_register
         assert register.receipt is None
@@ -68,3 +76,58 @@ class TestRegister:
     def test_get_empty_receipt(self, basic_register):
         register = basic_register
         assert register.get_receipt() is None
+
+    def test_process_item(self, basic_register, basic_items, mocker):
+        register = basic_register
+        item1 = basic_items[0]
+        receipt_mocker = mocker.patch('cashier.cash_register.register.Receipt')
+        import cashier
+        calculate_tax_rate_mocker = mocker.patch.object(cashier.cash_register.tax_office.TaxOffice, 'calculate_tax_rate')
+        calculate_tax_rate_mocker.return_value = 0.1
+        # call first time
+        register.process_item(item1)
+        receipt_mocker.assert_called_once()
+        calculate_tax_rate_mocker.assert_called_once_with(category=item1.category, imported=item1.imported)
+        receipt_mocker().add_item.assert_called_once_with(item1, 0.1)
+
+    def test_process_item_ongoing(self, basic_register, basic_items, mocker):
+        register = basic_register
+        item1 = basic_items[0]
+        receipt_mocker = mocker.patch('cashier.cash_register.register.Receipt')
+        register.receipt = receipt_mocker
+        import cashier
+        calculate_tax_rate_mocker = mocker.patch.object(cashier.cash_register.tax_office.TaxOffice, 'calculate_tax_rate')
+        calculate_tax_rate_mocker.return_value = 0.1
+        # call with existing receipt
+        register.process_item(item1)
+        receipt_mocker.assert_not_called()
+        calculate_tax_rate_mocker.assert_called_once_with(category=item1.category, imported=item1.imported)
+        receipt_mocker.add_item.assert_called_once_with(item1, 0.1)
+
+    def test_delete_item(self, basic_register, basic_items, mocker):
+        register = basic_register
+        item1 = basic_items[0]
+        receipt_mocker = mocker.patch('cashier.cash_register.register.Receipt')
+        register.delete_item(item1)
+        receipt_mocker.assert_not_called()
+
+    def test_delete_existing_item(self, basic_register, basic_items, mocker):
+        register = basic_register
+        item1 = basic_items[0]
+        receipt_mocker = mocker.patch('cashier.cash_register.register.Receipt')
+        register.receipt = receipt_mocker
+        register.delete_item(item1)
+        receipt_mocker.remove_item.assert_called_once_with(item1)
+
+    def test_reset(self, basic_register):
+        register = basic_register
+        register.reset()
+        assert register.receipt is None
+
+    def test_reset_existing(self, basic_register, mocker):
+        register = basic_register
+        receipt_mocker = mocker.patch('cashier.cash_register.register.Receipt')
+        register.receipt = receipt_mocker
+        assert register.receipt is not None
+        register.reset()
+        assert register.receipt is None
