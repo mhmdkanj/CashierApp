@@ -19,8 +19,8 @@ class TestReceipt:
     def valid_receipt(self, basic_items):
         item1, item2 = basic_items
         items = {
-            item1: PriceInfo(150, 0.5),
-            item2: PriceInfo(55, 0.1)
+            item1: PriceInfo(150, 50),
+            item2: PriceInfo(55, 5)
         }
         return Receipt(items=items)
 
