@@ -53,3 +53,17 @@ class TestReceipt:
         receipt.finish_receipt()
         assert receipt.total_price == 205
         assert receipt.total_sales_tax == 55
+
+
+class TestRegister:
+    @pytest.fixture
+    def basic_register(self):
+        return Register()
+
+    def test_init(self, basic_register):
+        register = basic_register
+        assert register.receipt is None
+
+    def test_get_empty_receipt(self, basic_register):
+        register = basic_register
+        assert register.get_receipt() is None
