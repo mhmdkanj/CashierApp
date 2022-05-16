@@ -21,7 +21,7 @@ class Item:
         # allow non-negative inputs only
         elif val < 0:
             raise ValueError(f"Price for item {self.name} cannot be negative.")
-        self._price = val
+        self._price = truncate(val)
 
     def __repr__(self):
         return f"{self.__class__.__name__}(name={self.name}, price={self.price}, category={self.category}, quantity={self.quantity}, imported={self.imported})"
