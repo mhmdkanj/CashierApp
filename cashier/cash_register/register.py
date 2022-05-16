@@ -1,3 +1,4 @@
+import math
 import datetime
 from collections import namedtuple
 from cashier.cash_register.tax_office import TaxOffice
@@ -11,9 +12,7 @@ class Receipt:
         self.total_sales_tax = 0
         self.total_price = 0
 
-    def add_item(self, item, sales_tax_rate):
-        price = item.price * item.quantity
-        sales_tax = price * sales_tax_rate
+    def add_item(self, item, price, sales_tax):
         taxed_price = price + sales_tax
         # TODO: handle when item already exists
         self.items[item] = PriceInfo(taxed_price, sales_tax)
@@ -42,7 +41,11 @@ class Register:
         if self.receipt is None:
             self.receipt = Receipt()
         tax_rate = TaxOffice.calculate_tax_rate(category=item.category, imported=item.imported)
-        self.receipt.add_item(item, tax_rate)
+        price = item.price * item.quantity
+        sales_tax = price * tax_rate
+        sales_tax = self.round_up(sales_tax)
+
+        self.receipt.add_item(item, price, sales_tax)
 
     def delete_item(self, item):
         if self.receipt is not None:
@@ -56,3 +59,7 @@ class Register:
     def reset(self):
         self.receipt = None
 
+    @staticmethod
+    def round_up(number, fraction=0.05):
+        rounded_up = math.ceil(number / fraction) * fraction
+        return round(rounded_up, -int(math.floor(math.log10(fraction))))

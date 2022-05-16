@@ -39,7 +39,7 @@ class TestReceipt:
         assert len(receipt.items) == 0
         assert receipt.total_sales_tax == 0
         assert receipt.total_price == 0
-        receipt.add_item(item1, 0.1)
+        receipt.add_item(item1, 200, 20)
         assert receipt.items[item1] == (220, 20)
 
     def test_remove_item(self, valid_receipt, basic_items):
@@ -88,7 +88,7 @@ class TestRegister:
         register.process_item(item1)
         receipt_mocker.assert_called_once()
         calculate_tax_rate_mocker.assert_called_once_with(category=item1.category, imported=item1.imported)
-        receipt_mocker().add_item.assert_called_once_with(item1, 0.1)
+        receipt_mocker().add_item.assert_called_once_with(item1, 200, 20)
 
     def test_process_item_ongoing(self, basic_register, basic_items, mocker):
         register = basic_register
@@ -102,7 +102,7 @@ class TestRegister:
         register.process_item(item1)
         receipt_mocker.assert_not_called()
         calculate_tax_rate_mocker.assert_called_once_with(category=item1.category, imported=item1.imported)
-        receipt_mocker.add_item.assert_called_once_with(item1, 0.1)
+        receipt_mocker.add_item.assert_called_once_with(item1, 200, 20)
 
     def test_delete_item(self, basic_register, basic_items, mocker):
         register = basic_register
